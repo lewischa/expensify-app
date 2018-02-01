@@ -5,6 +5,6 @@ Track your expenses!
 ---
 
 Uses:
-	* React
-	* Redux
-	* Webpack
+* React
+* Redux
+* Webpack
