@@ -66,7 +66,7 @@ test('Should call onSubmit prop for valid form submission', () => {
     expect(onSubmitSpy).toHaveBeenCalledWith({
         description: expenses[0].description,
         amount: expenses[0].amount,
-        note: undefined, // This should be '', so annoying
+        note: expenses[0].note,
         createdAt: expenses[0].createdAt
     });
 });
