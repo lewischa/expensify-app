@@ -5,6 +5,7 @@ import {
     addExpense,
     editExpense,
     removeExpense,
+    startRemoveExpense,
     setExpenses,
     startSetExpenses
 } from '../../actions/expenses';
@@ -31,6 +32,22 @@ test('Should set up remove expense action object', () => {
     expect(action).toEqual({
         type: 'REMOVE_EXPENSE',
         id: '123abc'
+    });
+});
+
+test('Should remove expense from database and store', (done) => {
+    const store = createMockStore({});
+    store.dispatch(startRemoveExpense(expenses[0])).then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'REMOVE_EXPENSE',
+            id: expenses[0].id
+        });
+
+        return database.ref(`expenses/${actions[0].id}`).once('value');
+    }).then((snapshot) => {
+        expect(snapshot.val()).toBeFalsy();
+        done();
     });
 });
 
